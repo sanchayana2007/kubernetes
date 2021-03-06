@@ -1,0 +1,11 @@
+#start cluster a createa contrlplane 
+
+sudo ./kind create cluster
+
+kubectl cluster-info --context kind-kind
+
+sudo kind get clusters
+
+sudo kind export logs
+
+sudo ./kind delete cluster
