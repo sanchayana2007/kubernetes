@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: cafe-ingress
+spec:
+  tls:
+  - hosts:
+    - localhost
+    secretName: marcel-tls-secret
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: flask-service
+          servicePort: 5000

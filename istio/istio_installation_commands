@@ -1,0 +1,17 @@
+#Download the latest version 
+curl -L https://istio.io/downloadIstio | sh -
+
+
+#Export the downloaded pathfor running istio 
+cd istio-1.9.1/
+
+export PATH=$PWD/bin:$PATH
+
+#Apply the istioctl demo 
+istioctl manifest apply --set profile=demo
+
+# label the namespce for the label: istio-injection=enabled
+kubectl label namespace default istio-injection=enabled
+
+
+

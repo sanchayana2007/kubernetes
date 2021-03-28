@@ -9,3 +9,5 @@ sudo kind get clusters
 sudo kind export logs
 
 sudo ./kind delete cluster
+ sudo kind delete clusters kind
+sudo kind delete clusters kind
