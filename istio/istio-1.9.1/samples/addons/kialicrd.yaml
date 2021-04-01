@@ -1,0 +1,36 @@
+apiVersion: "monitoring.kiali.io/v1alpha1"
+kind: MonitoringDashboard
+metadata:
+  name: vertx-custom
+spec:
+  runtime: Vert.x
+  title: Vert.x Metrics
+  discoverOn: "vertx_http_server_connections"
+  items:
+  - chart:
+      name: "Server response time"
+      unit: "seconds"
+      spans: 6
+      metrics:
+      - metricName: "vertx_http_server_responseTime_seconds"
+        displayName: "Server response time"
+      dataType: "histogram"
+      aggregations:
+      - label: "path"
+        displayName: "Path"
+      - label: "method"
+        displayName: "Method"
+  - chart:
+      name: "Server active connections"
+      unit: ""
+      spans: 6
+      metricName: "vertx_http_server_connections"
+      dataType: "raw"
+  - include: "micrometer-1.1-jvm"
+  externalLinks:
+  - name: "My custom Grafana dashboard"
+    type: "grafana"
+    variables:
+      app: var-app
+      namespace: var-namespace
+      version: var-version

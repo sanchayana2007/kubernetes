@@ -1,17 +1,33 @@
-#Download the latest version 
-curl -L https://istio.io/downloadIstio | sh -
+#Istio precheck
+istioctl x precheck
 
 
-#Export the downloaded pathfor running istio 
-cd istio-1.9.1/
+#istiocl install profile 
+istioctl profile list
 
-export PATH=$PWD/bin:$PATH
+istioctl install --set profile=default
 
-#Apply the istioctl demo 
-istioctl manifest apply --set profile=demo
+kubectl -n istio-system get pods
 
-# label the namespce for the label: istio-injection=enabled
-kubectl label namespace default istio-injection=enabled
+istioctl proxy-status
 
 
 
+#namesapceis enabled for istio container injection
+
+kubectl label namespace/default istio-injection=enabled
+
+# restart all pods to get sidecar injected
+ kubectl delete pods --all
+
+# l grafan dashboard
+kubectl apply -n istio-system -f  istio-1.9.1/samples/addons/prometheus.yaml
+kubectl apply -n istio-system -f istio-1.9.1/samples/addons/grafana.yaml 
+kubectl -n istio-system port-forward svc/grafana 300
+
+
+#Set up kiali 
+kubectl apply -f /tmp/istio-1.6.12/samples/addons/kiali.yaml
+
+kubectl -n istio-system get pods
+kubectl -n istio-system port-forward svc/kiali 20001
