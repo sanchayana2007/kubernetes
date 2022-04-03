@@ -1,6 +1,9 @@
+#############################################
 #start cluster a createa contrlplane 
-
 sudo ./kind create cluster
+./kind create cluster  --config kind-config.yml
+
+############################################
 
 kubectl cluster-info --context kind-kind
 
