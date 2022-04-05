@@ -2,7 +2,7 @@
 clustername="kind-app-1-cluster"
 apiserver_url=$(kubectl config view -o jsonpath="{.clusters[?(@.name==\"$clustername\")].cluster.server}")
 echo "$apiserver_url"
-echo "***********AUTHORISATION AND AUTHENTICATION ######################"
+echo "***********AUTHORISATION AND AUTHENTICATION BY API SERVER ######################"
 echo "Create a secret to hold a token for the default service account"
 
 defaultSA_secret=$(kubectl get sa | awk  'NR==2 {print $2}')
